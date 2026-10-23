@@ -1,57 +1,186 @@
-# Nhà xe Thanh Tĩnh
+# Thanh Tinh Bus Management System
 
-Vẫn còn đang trong giai đoạn phát triển và thử nghiệm.
+This project is currently under development and testing.
 
-Thư mục này là gốc kho Git riêng của ứng dụng. Chạy toàn bộ lệnh bên dưới tại đây. CV và tài liệu cá nhân nằm ngoài kho. Xem [hướng dẫn Git](GIT.md).
+## About the Project
 
-Project thực hành từng bước để xây sổ hàng gửi dùng được trong thực tế.
+Thanh Tinh Bus Management System is a web-based application designed to help manage daily operations for a bus company.
 
-Đã có mục **Xe & nhân viên**: ba xe định danh bằng SĐT 0868612311–0868612313, hồ sơ lái/phụ và phân công mỗi xe 2 lái + 2 phụ. Admin quản lý, nhân viên xem; xem [hướng dẫn sử dụng và giải thích code](QUAN-LY-XE-VA-NHAN-VIEN.md).
+The system focuses on making common tasks easier for employees while providing a simple ticket booking experience for customers.
 
-Mục **Bán vé & lịch xe** có 24 khoang/xe, vé 800.000đ cho 1 người hoặc 1.200.000đ cho 2 người, lịch chẵn/lẻ, điểm đón/trả hai chiều, thu/hoàn tiền và cho xe nghỉ. Xem [hướng dẫn bán vé và lịch xe](BAN-VE-VA-LICH-XE.md). Xe 3 cần admin chọn lịch trước khi mở bán.
+## Main Features
 
-Đã có chuyển đơn Chờ đi sang ngày kế khi xe đầy (nhập xe nhận thay, giữ ngày nhận và tiền thu gốc). Khung Tổng thu chi hỗ trợ Hôm nay, 14 ngày và tháng lịch. Xem thao tác chi tiết trong `CACH-FOLDER-VAN-HANH.md`.
+### Cargo Management
+- Add and manage cargo shipments
+- Store sender and receiver information
+- Track shipping fees
+- Track paid and unpaid orders
+- Manage delivery locations
+- Move waiting cargo to another trip when a bus is full
 
-Hướng dẫn ngắn về từng file, cách khởi động và luồng xử lý: [Cách folder vận hành](CACH-FOLDER-VAN-HANH.md).
+### Bus Management
+- Manage buses
+- View bus information
+- Assign employees to each bus
+- Allow administrators to manage bus schedules
 
-Mỗi tài khoản nhân viên hiện có **Thu chi hôm nay**: tiền do chính tài khoản thu, khoản chi có lý do và chênh lệch Thu − Chi. Admin xem tổng cả hai đầu hoặc theo chi nhánh. Tính năng nằm ở giao diện Next.js; số liệu được kiểm soát quyền tại backend. Tổng thu chi không phải số dư quỹ hoặc lợi nhuận. Chưa có sửa/hủy khoản chi.
+### Employee Management
+- Manage drivers and bus assistants
+- Assign employees to buses
+- Employees can view information related to their assigned work
 
-## Chạy cả website từ thư mục này
+### Ticket Management
+- Sell and manage bus tickets
+- Manage passenger information
+- Select pickup and drop-off locations
+- Manage bus schedules
+- Support ticket payments and refunds
+- Manage available seats
 
-Yêu cầu: Node.js 22.12+ và Python 3.11+.
+### Income and Expense Tracking
+- Record daily income
+- Record expenses with descriptions
+- View income and expenses by day, 14 days, or month
+- Administrators can view information from all branches
 
-Lần đầu: `npm.cmd ci`, rồi `npm.cmd run setup`. Sau đó chạy `npm.cmd run dev`, hoặc mở `CHAY-NHA-XE.bat`. Truy cập http://127.0.0.1:3000. Một lệnh khởi động cả backend Python và frontend Next.js; Ctrl+C dừng cả hai tiến trình do lệnh này tạo.
+## User Roles
 
-Nếu trước đó đã chạy riêng backend ở cổng 8765 hoặc frontend ở cổng 3000, hãy dừng cửa sổ chạy cũ trước. Bộ khởi động báo lỗi cổng bận và không tự tắt tiến trình có sẵn. Tài khoản vẫn nằm trong `nha-xe-v1/TAI-KHOAN.txt`.
+### Admin
+Administrators have full access to the management system.
 
-`.env` ở thư mục gốc cấu hình PORT, BACKEND_PORT và PYTHON_COMMAND. Nếu Python không có trong PATH, đặt PYTHON_COMMAND thành đường dẫn tới python.exe. Không thêm tham số vào giá trị này. Có thể sao chép `.env.example` khi thiết lập máy mới; giữ nguyên `.env` nếu đã có cấu hình.
+They can manage:
+- Cargo
+- Buses
+- Employees
+- Bus schedules
+- Tickets
+- Income and expenses
 
-| Lệnh tại thư mục gốc | Công dụng |
-|---|---|
-| `npm.cmd run dev` | Chạy backend và frontend, Next tự cập nhật giao diện khi sửa code |
-| `npm.cmd run dev:watch` | Node tự khởi động lại bộ dịch vụ khi sửa server.js, backend hoặc .env; dành Windows/macOS |
-| `npm.cmd run build` | Build Next với cổng backend lấy từ .env |
-| `npm.cmd start` | Chạy bản Next đã build cùng backend cục bộ |
-| `npm.cmd test` | Kiểm thử cấu hình bộ khởi động |
-| `npm.cmd run test:smoke` | Khởi động thử ở cổng 13000/18765, kiểm tra API và dừng cả hai dịch vụ; không tạo đơn hàng |
-| `npm.cmd run typecheck` | Kiểm tra TypeScript frontend |
+### Employee
+Employees use a simplified interface for daily tasks.
 
-Đổi BACKEND_PORT thì build lại trước `npm start`, vì Next lưu đích proxy trong bản build. `npm start` vẫn là chạy thử cục bộ: backend Python hiện tại chưa phải máy chủ production. Các dịch vụ chỉ lắng nghe 127.0.0.1.
+They can:
+- Manage cargo
+- Sell tickets
+- View bus information
+- Record income and expenses related to their work
 
-## Các file bạn cung cấp
+### Customer
+Customers can use the website to:
+- Search for available bus trips
+- Select pickup and drop-off locations
+- Choose available seats
+- Book bus tickets
 
-Đã giữ nguyên bản sao của 8 file portfolio trong `../../references/portfolio-config/`, gồm cả `.env`. Toàn bộ thư mục tham khảo bị loại khỏi Git; không chia sẻ file `.env` gốc. Nguồn ở `C:/Users/giahu/newwork/HenryPham-git` không bị thay đổi.
+## Technologies
 
-Ở thư mục gốc này, `.env`, `.env.example`, `.gitignore`, `package.json`, `package-lock.json`, `server.js`, `nodemon.json` và README được điều chỉnh cho nhà xe. Không dùng package-lock của portfolio để cài dependencies cho nhà xe, vì hai ứng dụng có bộ thư viện khác nhau. `server.js` mới điều phối Python và Next, không yêu cầu `./src/server` của portfolio. Node đọc `.env` trực tiếp, không cần dotenv.
+### Frontend
+- Next.js
+- React
+- TypeScript
 
-`nodemon.json` là cấu hình tham khảo tùy chọn, không thuộc đường chạy được hỗ trợ hiện tại. Nodemon đã được bỏ khỏi dependencies sau khi npm báo cảnh báo bảo mật ở chuỗi phụ thuộc; `dev:watch` dùng Node watch tích hợp.
+### Backend
+- Python
 
-Đã xác minh: build Next/TypeScript thành công; 3 kiểm thử cấu hình đạt; phép thử khởi động thật xác nhận cả backend và proxy Next trả 401 khi chưa đăng nhập, sau khi dừng cả hai cổng đều được giải phóng. Phép thử HTTP cần quyền kết nối localhost ngoài sandbox. Chưa kiểm tra trực quan lại toàn bộ giao diện trong lần tích hợp này.
+### Database
+- SQLite
 
-1. Đọc [lộ trình học và làm](LO-TRINH-HOC-VA-LAM.md).
-2. Chạy backend theo [hướng dẫn bản đầu](nha-xe-v1/README.md).
-3. Chạy giao diện React/Next.js theo [hướng dẫn frontend](nha-xe-web/README.md).
+The current version uses Python and SQLite for the backend.
 
-Hiện tại: Next.js + React + TypeScript ở frontend; Python + SQLite ở backend. Hướng tiếp theo: chuyển backend sang NestJS, dữ liệu sang PostgreSQL sau khi hiểu và kiểm thử được luồng hiện có.
+Future development may migrate the backend to NestJS and the database to PostgreSQL.
 
-Các file trong `../../sources/` là tài liệu tham chiếu chỉ đọc.
+## Requirements
+
+Before running the project, install:
+
+- Node.js 22.12 or newer
+- Python 3.11 or newer
+
+## Installation
+
+Clone the repository and install the dependencies:
+
+```bash
+npm install
+```
+
+Run the initial setup:
+
+```bash
+npm run setup
+```
+
+## Run the Project
+
+Start both the frontend and backend:
+
+```bash
+npm run dev
+```
+
+Then open:
+
+```text
+http://127.0.0.1:3000
+```
+
+Press `Ctrl + C` to stop the application.
+
+## Other Commands
+
+```bash
+npm run build
+```
+
+Build the Next.js frontend.
+
+```bash
+npm start
+```
+
+Run the built version locally.
+
+```bash
+npm test
+```
+
+Run project configuration tests.
+
+```bash
+npm run test:smoke
+```
+
+Run a basic test for the frontend and backend services.
+
+```bash
+npm run typecheck
+```
+
+Check the TypeScript frontend.
+
+## Project Status
+
+The project is still under active development.
+
+Current technologies:
+
+**Frontend:** Next.js, React, TypeScript  
+**Backend:** Python  
+**Database:** SQLite
+
+Planned improvements include:
+
+- Improve the user interface
+- Simplify employee workflows
+- Improve customer ticket booking
+- Add more testing
+- Improve security and authentication
+- Migrate the backend to NestJS
+- Migrate the database to PostgreSQL
+- Prepare the application for production deployment
+
+## Project Goal
+
+The goal of this project is to create a practical and easy-to-use management system for a Vietnamese bus company.
+
+Instead of replacing existing workflows with a complicated system, the application is designed to simplify common daily tasks such as cargo management, ticket sales, employee management, vehicle management, and financial tracking.
