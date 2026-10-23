@@ -1,0 +1,19 @@
+{
+  "name": "nha-xe-manager",
+  "version": "0.2.0",
+  "private": true,
+  "type": "commonjs",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "setup": "npm --prefix nha-xe-web ci",
+    "dev": "node server.js",
+    "dev:watch": "node --watch --watch-preserve-output --watch-path=server.js --watch-path=nha-xe-v1/app.py --watch-path=nha-xe-v1/fleet.py --watch-path=nha-xe-v1/tickets.py --watch-path=nha-xe-v1/ticket_routes.py --watch-path=nha-xe-v1/notifications.py --watch-path=nha-xe-v1/public_booking.py --watch-path=.env server.js",
+    "build": "node server.js --build",
+    "start": "node server.js --production",
+    "test": "node --test test/launcher.test.js",
+    "test:smoke": "node test/smoke.js",
+    "typecheck": "npm --prefix nha-xe-web run typecheck"
+  }
+}

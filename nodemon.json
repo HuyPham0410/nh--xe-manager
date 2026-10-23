@@ -1,0 +1,7 @@
+{
+  "watch": ["server.js", "nha-xe-v1/app.py", ".env"],
+  "ext": "js,py,env",
+  "ignore": ["**/node_modules/**", "**/.next/**", "**/*.sqlite3*", "tham-khao/**", "sources/**"],
+  "signal": "SIGTERM",
+  "exec": "node server.js"
+}
